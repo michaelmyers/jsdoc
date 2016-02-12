@@ -99,6 +99,18 @@ describe('jsdoc/path', function() {
             expect( path.commonPrefix(paths) ).toEqual(expected);
         });
 
+        it('finds the correct prefix for a group of the same absolute paths', function () {
+            var paths = [
+                cwd.concat('foo', 'bar', 'baz', 'qux.js').join(path.sep),
+                cwd.concat('foo', 'bar', 'baz', 'qux.js').join(path.sep),
+                cwd.concat('foo', 'bar', 'baz', 'qux.js').join(path.sep)
+            ];
+            // we expect a trailing slash
+            var expected = cwd.concat('foo', 'bar', 'baz', '').join(path.sep);
+
+            expect( path.commonPrefix(paths) ).toEqual(expected);
+        });
+
         it('returns an empty string when the paths array is empty', function() {
             var paths = [];
 
